@@ -23,5 +23,9 @@ jobs:
       - name: Terraform Validate
         run: terraform -chdir=${{ env.TERRAFORM_DIR }} validate
 
-      - name: Terraform Plan
-        run: terraform -chdir=${{ env.TERRAFORM_DIR }} plan -input=false
+      # requires terraform enterprise
+      # - name: Terraform Plan
+      #   run: terraform -chdir=${{ env.TERRAFORM_DIR }} plan -input=false
+
+      # - name: Terraform Apply
+      #   run: terraform -chdir=${{ env.TERRAFORM_DIR }} apply -input=false

@@ -1,5 +1,5 @@
 resource "databricks_job" "device_health_job" {
-  name        = "Job to generate and aggregate device health"
+  name = "Job to generate and aggregate device health"
 
   job_cluster {
     job_cluster_key = "job_a"
@@ -11,7 +11,7 @@ resource "databricks_job" "device_health_job" {
   }
 
   task {
-    task_key = "a"
+    task_key        = "a"
     job_cluster_key = "job_a"
     notebook_task {
       notebook_path = databricks_notebook.device_health.path

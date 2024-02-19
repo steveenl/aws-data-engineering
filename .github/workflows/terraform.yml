@@ -1,29 +1,30 @@
-name: 'Terraform'
+name: "Terraform CI"
 
 on:
   push:
     branches:
       - main
-  pull_request:
 
 jobs:
   terraform:
-    name: 'Terraform'
+    name: "Terraform Validate and Plan"
     runs-on: ubuntu-latest
 
+    # Specify container image
+    container:
+      image: hashicorp/terraform:latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout Repo
+        uses: actions/checkout@v3
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: latest
+        run: |
+          terraform -v
+          terraform init -input=false ./terraform/
 
-      - name: Terraform Init
-        run: terraform init
+      - name: Terraform Validate
+        run: terraform validate ./terraform/
 
       - name: Terraform Plan
-        run: terraform plan
-
-    # Apply step would go here
+        run: terraform plan -input=false ./terraform/

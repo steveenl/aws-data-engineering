@@ -5,26 +5,23 @@ on:
     branches:
       - main
 
+env:
+  TERRAFORM_DIR: './terraform' # Define an environment variable for the Terraform directory
+
 jobs:
   terraform:
     name: "Terraform Validate and Plan"
     runs-on: ubuntu-latest
-
-    # Specify container image
-    container:
-      image: hashicorp/terraform:latest
 
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
       - name: Setup Terraform
-        run: |
-          terraform -v
-          terraform init -input=false ./terraform/
+        run: terraform -chdir=${{ env.TERRAFORM_DIR }} init -input=false
 
       - name: Terraform Validate
-        run: terraform validate ./terraform/
+        run: terraform -chdir=${{ env.TERRAFORM_DIR }} validate
 
       - name: Terraform Plan
-        run: terraform plan -input=false ./terraform/
+        run: terraform -chdir=${{ env.TERRAFORM_DIR }} plan -input=false
